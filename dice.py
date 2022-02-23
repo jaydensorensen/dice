@@ -25,7 +25,10 @@ def rollDice(dice: np.ndarray) -> None:
         total = 0
 
         for i in range(0, numberOfDice):
-            roll = random.randint(1, int(die[1]))
+            if int(die[1]) == 100:
+                roll = random.randint(1, 10) * 10
+            else:
+                roll = random.randint(1, int(die[1]))
             print(roll)
             total += roll
     
@@ -39,7 +42,7 @@ def parseDice(dice: list[str]) -> np.ndarray:
         dice(list[str]): list of dice inputs in format 1d20, 6d4, etc.
         returns: (np.ndarray) parsed dice inputs
     """
-    allDice = np.array(dice[0].split('d'))
+    allDice = np.array([dice[0].split('d')])
     for d in range(1, len(dice)):
         allDice = np.vstack((allDice, dice[d].split('d')))
 
