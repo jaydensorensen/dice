@@ -10,17 +10,28 @@ def cli() -> None:
     parser.add_argument('dice', type=str, nargs='+', help='enter dice to roll in format 1d20 2d6 etc')
 
     args = parser.parse_args()
-    print(type(args))
     rollDice(parseDice(args.dice))
+
 
 def rollDice(dice: np.ndarray) -> None:
     """Rolls the dice
         args(np.ndarray)): nx2 list of parsed dice inputs where n is number of user inputs
     """
+    grandTotal = 0
     for die in dice:
+        print(f"Rolling {die[0]}d{die[1]}:")
+
         numberOfDice = int(die[0])
+        total = 0
+
         for i in range(0, numberOfDice):
-            print(random.randint(1, int(die[1])))
+            roll = random.randint(1, int(die[1]))
+            print(roll)
+            total += roll
+    
+        grandTotal += total
+    
+    print(f"Total: {grandTotal}")
     
 
 def parseDice(dice: list[str]) -> np.ndarray:
